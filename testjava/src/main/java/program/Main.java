@@ -1,20 +1,47 @@
 package program;
 
-import models.Answer;
-import models.Question;
-import models.Role;
+import models.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import utils.HibernateSessionUtils;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         //addQuestion();
-        showQuestions();
+        //showQuestions();
+        //addTestUserAndRole();
+        //createCategory();
+
+        try(Session context = HibernateSessionUtils.getSessionFactory().openSession()) {
+
+        }
+    }
+    private static void createCategory() {
+        try(Session context = HibernateSessionUtils.getSessionFactory().openSession()) {
+            Category c = new Category("Ноутбуки","1.jpg",new Date(),false);
+            context.save(c);
+        }
+    }
+
+    private static void addTestUserAndRole() {
+        try(Session context = HibernateSessionUtils.getSessionFactory().openSession()) {
+            Transaction tx = context.beginTransaction();
+            User user = new User("Муха", "Бобер", "bober@gmai.com",
+                    "+38097 98 76 786","123456");
+            context.save(user);
+            var role = context.get(Role.class, 1);
+            var ur = new UserRole();
+            ur.setUser(user);
+            ur.setRole(role);
+            context.save(ur);
+            tx.commit();
+        }
     }
     private static void showQuestions() {
         try(Session context = HibernateSessionUtils.getSessionFactory().openSession()){

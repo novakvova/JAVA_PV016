@@ -15,6 +15,10 @@ public class HibernateSessionUtils {
                 config.addAnnotatedClass(Role.class);
                 config.addAnnotatedClass(Question.class);
                 config.addAnnotatedClass(Answer.class);
+                config.addAnnotatedClass(User.class);
+                config.addAnnotatedClass(UserRole.class);
+                config.addAnnotatedClass(Category.class);
+                config.addAnnotatedClass(Product.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                         .applySettings(config.getProperties());
                 sessionFactory = config.buildSessionFactory();
