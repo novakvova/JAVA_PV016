@@ -7,6 +7,7 @@ import DefaultHeader from './components/containers/default/DefaultHeader';
 import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from './components/containers/default';
 import Login from './components/login';
+import NotFoundPage from './components/notFound';
 const App = () => {
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const App = () => {
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
-          {/* <Route path="*" element={<NoMatch />} /> */}
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </>
