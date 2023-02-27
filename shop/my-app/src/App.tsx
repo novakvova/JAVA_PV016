@@ -8,15 +8,16 @@ import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from './components/containers/default';
 import Login from './components/login';
 import NotFoundPage from './components/notFound';
+import CategoryCreatePage from './components/categories/create';
 const App = () => {
 
-  useEffect(() => {
-    console.log("use effect App");
-    axios.get("http://localhost:8083/api/categories")
-      .then(resp => {
-        console.log("Server result", resp);
-      });
-  }, []);
+  // useEffect(() => {
+  //   console.log("use effect App");
+  //   axios.get("http://localhost:8083/api/categories")
+  //     .then(resp => {
+  //       console.log("Server result", resp);
+  //     });
+  // }, []);
   
   
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
+          <Route path="categories/create" element={<CategoryCreatePage />} />
           {/* <Route path="about" element={<About />} />
           <Route path="dashboard" element={<Dashboard />} /> */}
 
