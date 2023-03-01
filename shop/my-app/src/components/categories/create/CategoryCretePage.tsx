@@ -3,6 +3,12 @@ import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ICategoryCreate } from "../types";
 
+// interface IWoman {
+//   name: string,
+//   age: number,
+//   phone: string
+// }
+
 const CategoryCreatePage = () => {
 
     const navigator = useNavigate();
@@ -37,8 +43,20 @@ const CategoryCreatePage = () => {
 
     const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        // let woman : IWoman = {
+        //   name: "Марина",
+        //   age: 48,
+        //   phone: "+3897 874 55 44"
+        // };
+        // console.log("Woman info ", woman);
+        // woman = {...woman, age: 34};
+        // console.log("Woman new age", woman);
+        // woman = {...woman, age: 18, name: "Ілона"};
+        // console.log("Woman new age and new name", woman);
+        
+
         try {
-            const item = axios.post("http://localhost:8083/api/categories", model);
+            const item = await axios.post("http://localhost:8083/api/categories", model);
             console.log("Server save category", item);
             navigator("/");
         }catch(error: any) {
