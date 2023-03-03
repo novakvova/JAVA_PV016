@@ -6,8 +6,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import shop.dto.category.CategoryItemDTO;
 import shop.dto.UploadImageDto;
+import shop.dto.product.UploadListImagesDTO;
 import shop.storage.StorageService;
 
 import java.net.URLEncoder;
@@ -26,8 +28,8 @@ public class HomeController {
         return "База прийом. Я на місці";
     }
 
-    @GetMapping("/girl")
-    public String girl() {
+    @PostMapping(value = "/girl", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String girl( @RequestParam("files") List<MultipartFile> file) {
 
         return "Привіт дівчата";
     }
