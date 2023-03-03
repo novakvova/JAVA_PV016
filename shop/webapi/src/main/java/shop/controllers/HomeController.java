@@ -21,10 +21,16 @@ public class HomeController {
     private final StorageService storageService;
     private static List<CategoryItemDTO> list= new ArrayList<>();
     @GetMapping("/")
-    public List<CategoryItemDTO> index() {
-        return list;
+    public String index() {
+
+        return "База прийом. Я на місці";
     }
 
+    @GetMapping("/girl")
+    public String girl() {
+
+        return "Привіт дівчата";
+    }
     @PostMapping("/")
     public void add(@RequestBody CategoryItemDTO category) {
         list.add(category);
