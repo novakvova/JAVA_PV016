@@ -1,5 +1,5 @@
 export interface ICategoryCreate {
     name: string;
-    base64: string;
+    file: File | null;
     description: string;
 };
