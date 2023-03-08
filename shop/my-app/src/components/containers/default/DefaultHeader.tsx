@@ -166,9 +166,9 @@ const DefaultHeader = () => {
               )}
             </Popover>
 
-            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-              Pricing
-            </a>
+            <Link to="/products/create" className="text-base font-medium text-gray-500 hover:text-gray-900">
+              Додати продукт
+            </Link>
             <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
               Docs
             </a>

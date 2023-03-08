@@ -9,6 +9,7 @@ import DefaultLayout from './components/containers/default';
 import Login from './components/login';
 import NotFoundPage from './components/notFound';
 import CategoryCreatePage from './components/categories/create';
+import ProductCreatePage from './components/products/create/ProductCreatePage';
 const App = () => {
 
   // useEffect(() => {
@@ -27,6 +28,8 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="categories/create" element={<CategoryCreatePage />} />
+          <Route path="products/create" element={<ProductCreatePage />} />
+
           {/* <Route path="about" element={<About />} />
           <Route path="dashboard" element={<Dashboard />} /> */}
 
