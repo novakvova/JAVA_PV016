@@ -2,14 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { APP_ENV } from "../../env";
-
-
-interface ICategoryItem {
-  id: number,
-  name: string,
-  image: string,
-  description: string
-}
+import { ICategoryItem } from "./types";
 
 const Home = () => {
 
