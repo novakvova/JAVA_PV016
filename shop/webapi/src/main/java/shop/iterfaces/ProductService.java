@@ -11,6 +11,6 @@ public interface ProductService {
     List<ProductItemDTO> get();
     ProductItemDTO edit(int id, ProductEditDTO model);
     ProductItemDTO getById(int id);
-
+    void delete(int id);
 }
 
