@@ -20,8 +20,9 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
     @GetMapping
-    public ResponseEntity<List<CategoryItemDTO>> index() {
+    public ResponseEntity<List<CategoryItemDTO>> index() throws InterruptedException {
         var result = categoryService.get();
+        Thread.sleep(2000);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
