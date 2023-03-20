@@ -12,6 +12,7 @@ import CategoryCreatePage from './components/categories/create';
 import ProductCreatePage from './components/products/create/ProductCreatePage';
 import ProductListPage from './components/products/list';
 import ProductEditPage from './components/products/edit';
+import ProductItemPage from './components/products/item/ProductItemPage';
 const App = () => {
 
   // useEffect(() => {
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="products/create" element={<ProductCreatePage />} />
           <Route path="products/edit/:id" element={<ProductEditPage />} />
           <Route path="products/list" element={<ProductListPage />} />
+          <Route path="products/view/:id" element={<ProductItemPage />} />
 
           {/* <Route path="about" element={<About />} />
           <Route path="dashboard" element={<Dashboard />} /> */}

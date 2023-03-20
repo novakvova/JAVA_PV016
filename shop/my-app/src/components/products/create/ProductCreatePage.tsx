@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
+import { FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { APP_ENV } from "../../../env";
 import { ICategoryItem } from "../../home/types";
@@ -68,7 +69,33 @@ const ProductCreatePage = () => {
   };
 
   const dataFileView = model.files.map((file, index) => (
-    <img key={index} src={URL.createObjectURL(file)} />
+    <div key={index} className="mb-4 imageView">
+      <div className="hideSection">
+        <Link
+        className="text-sm"
+        to="#"
+        onClick={(e) => {
+          e.preventDefault();
+          setModel({ ...model, files: model.files.filter((x) => x !== file) });
+          console.log("click delete", file);
+        }}
+      >
+        <FaTimes className="m-2 text-3xl text-red-500" />
+      </Link>
+      </div>
+
+      <div className="relative">
+        <div style={{ height: "150px" }}>
+          <div className="picture-main">
+            <img
+              src={URL.createObjectURL(file)}
+              className="picture-container"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   ));
 
   const contentCategories = categories.map((category) => (
@@ -132,7 +159,9 @@ const ProductCreatePage = () => {
                 name="category_id"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option hidden selected>Виберіть категорію</option>
+                <option hidden selected>
+                  Виберіть категорію
+                </option>
                 {contentCategories}
               </select>
             </div>
@@ -156,17 +185,15 @@ const ProductCreatePage = () => {
             </div>
 
             <div>
+
               <label className="block text-sm font-medium text-gray-700">
                 Фото
               </label>
+              <div className="grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-4 grid-cols-2 items-center gap-4">
+                {dataFileView}
+              </div>
 
               <div className="mt-1 flex items-center">
-                <label
-                  htmlFor="selectImage"
-                  className="inline-block w-20 overflow-hidden bg-gray-100"
-                >
-                  {dataFileView}
-                </label>
                 <label
                   htmlFor="selectImage"
                   className="ml-5 rounded-md border border-gray-300 bg-white 

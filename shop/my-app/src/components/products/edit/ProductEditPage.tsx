@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { APP_ENV } from "../../../env";
 import { ICategoryItem } from "../../home/types";
 import { IProductCreate, IProductEdit, IProductItem } from "../types";
-import { FaTrash } from "react-icons/fa";
+import { FaTimes, FaTrash } from "react-icons/fa";
 
 const ProductEditPage = () => {
   const navigator = useNavigate();
@@ -83,7 +83,36 @@ const ProductEditPage = () => {
   };
 
   const dataFileView = model.files.map((file, index) => (
-    <img key={index} src={URL.createObjectURL(file)} />
+    <div key={index} className="mb-4 imageView">
+      <div className="hideSection">
+        <Link
+          className="text-sm"
+          to="#"
+          onClick={(e) => {
+            e.preventDefault();
+            setModel({
+              ...model,
+              files: model.files.filter((x) => x !== file),
+            });
+            console.log("click delete", file);
+          }}
+        >
+          <FaTimes className="m-2 text-3xl text-red-500" />
+        </Link>
+      </div>
+
+      <div className="relative">
+        <div style={{ height: "150px" }}>
+          <div className="picture-main">
+            <img
+              src={URL.createObjectURL(file)}
+              className="picture-container"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   ));
 
   const contentCategories = categories.map((category) => (
@@ -92,29 +121,37 @@ const ProductEditPage = () => {
     </option>
   ));
 
-  const DeleteProductOldImagesHandler = (imageSrc: string) => {
-    //додаємо, щоб backend знав, що файл треба видалить
-    setModel({ ...model, removeFiles: [...model.removeFiles, imageSrc] });
-    //видаляємо файл із сторінки
-    setOldImages(oldImages.filter((x) => x !== imageSrc));
-  };
-
   const DataProductsOld = oldImages.map((product, index) => (
-    <div key={index} className="inline  m-2 ">
-      <div
-        style={{ cursor: "pointer" }}
-        className="flex justify-center ... border-2 border-black  rounded-lg ... "
-        onClick={(e) => {
-          DeleteProductOldImagesHandler(product);
-        }}
-      >
-        <FaTrash className="m-2 " />
+    <div key={index} className="mb-4 imageView">
+      <div className="hideSection">
+        <Link
+          className="text-sm"
+          to="#"
+          onClick={(e) => {
+            e.preventDefault();
+            //додаємо, щоб backend знав, що файл треба видалить
+            setModel({
+              ...model,
+              removeFiles: [...model.removeFiles, product],
+            });
+            //видаляємо файл із сторінки
+            setOldImages(oldImages.filter((x) => x !== product));
+          }}
+        >
+          <FaTimes className="m-2 text-3xl text-red-500" />
+        </Link>
       </div>
-      <div className="p-2">
-        <img
-          className=" w-20 h-20 "
-          src={`${APP_ENV.REMOTE_HOST_NAME}files/600_${product}`}
-        ></img>
+
+      <div className="relative">
+        <div style={{ height: "150px" }}>
+          <div className="picture-main">
+            <img
+              src={`${APP_ENV.REMOTE_HOST_NAME}files/600_${product}`}
+              className="picture-container"
+              alt=""
+            />
+          </div>
+        </div>
       </div>
     </div>
   ));
@@ -202,13 +239,12 @@ const ProductEditPage = () => {
                 Фото
               </label>
 
+              <div className="grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-4 grid-cols-2 items-center gap-4">
+                {DataProductsOld}
+                {dataFileView}
+              </div>
+
               <div className="mt-1 flex items-center">
-                <label
-                  htmlFor="selectImage"
-                  className="inline-block w-20 overflow-hidden bg-gray-100"
-                >
-                  {dataFileView}
-                </label>
                 <label
                   htmlFor="selectImage"
                   className="ml-5 rounded-md border border-gray-300 bg-white 
@@ -217,12 +253,6 @@ const ProductEditPage = () => {
                         focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Обрати фото
-                </label>
-              </div>
-
-              <div className="mt-1 flex items-center">
-                <label className="flex ">
-                  <>{DataProductsOld}</>
                 </label>
               </div>
 
