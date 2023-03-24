@@ -6,13 +6,13 @@ import Home from './components/home';
 import DefaultHeader from './components/containers/default/DefaultHeader';
 import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from './components/containers/default';
-import Login from './components/login';
 import NotFoundPage from './components/notFound';
 import CategoryCreatePage from './components/categories/create';
 import ProductCreatePage from './components/products/create/ProductCreatePage';
 import ProductListPage from './components/products/list';
 import ProductEditPage from './components/products/edit';
 import ProductItemPage from './components/products/item/ProductItemPage';
+import LoginePage from './components/auth/login';
 const App = () => {
 
   // useEffect(() => {
@@ -29,7 +29,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
+          <Route path="login" element={<LoginePage />} />
           <Route path="categories/create" element={<CategoryCreatePage />} />
           <Route path="products/create" element={<ProductCreatePage />} />
           <Route path="products/edit/:id" element={<ProductEditPage />} />
