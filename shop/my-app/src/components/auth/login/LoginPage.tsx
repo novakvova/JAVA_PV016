@@ -5,13 +5,17 @@ import { APP_ENV } from "../../../env";
 import { ILogin } from "../types";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const LoginePage = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
   const navigator = useNavigate();
 
   const initValues: ILogin = {
     email: "",
     password: "",
+    reCaptchaToken: ""
   };
 
   const loginSchema = yup.object({
@@ -22,6 +26,11 @@ const LoginePage = () => {
 
   const onSubmitHandler = async (values: ILogin) => {
     try {
+      if(!executeRecaptcha)
+        return;
+      //Перевірка чи пройшов перевірку гугл, користувач, чи не є він бот  
+      values.reCaptchaToken=await executeRecaptcha();
+
       const data = await axios.post(
         `${APP_ENV.REMOTE_HOST_NAME}account/login`,
         values

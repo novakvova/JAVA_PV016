@@ -12,7 +12,7 @@ import ProductCreatePage from './components/products/create/ProductCreatePage';
 import ProductListPage from './components/products/list';
 import ProductEditPage from './components/products/edit';
 import ProductItemPage from './components/products/item/ProductItemPage';
-import LoginePage from './components/auth/login';
+import LoginPage from './components/auth/login';
 const App = () => {
 
   // useEffect(() => {
@@ -29,7 +29,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Home />} />
-          <Route path="login" element={<LoginePage />} />
+          <Route path="login" element={<LoginPage />} />
           <Route path="categories/create" element={<CategoryCreatePage />} />
           <Route path="products/create" element={<ProductCreatePage />} />
           <Route path="products/edit/:id" element={<ProductEditPage />} />
