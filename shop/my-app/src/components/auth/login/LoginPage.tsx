@@ -2,15 +2,19 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { APP_ENV } from "../../../env";
-import { ILogin } from "../types";
+import { AuthUserActionType, IAuthResponse, ILogin, IUser } from "../types";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useDispatch } from "react-redux";
+import jwtDecode from "jwt-decode";
 
 const LoginePage = () => {
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const navigator = useNavigate();
+
+  const dispatch = useDispatch();
 
   const initValues: ILogin = {
     email: "",
@@ -31,12 +35,20 @@ const LoginePage = () => {
       //Перевірка чи пройшов перевірку гугл, користувач, чи не є він бот  
       values.reCaptchaToken=await executeRecaptcha();
 
-      const data = await axios.post(
+      const resp = await axios.post<IAuthResponse>(
         `${APP_ENV.REMOTE_HOST_NAME}account/login`,
         values
       );
-      console.log("Login user token", data);
-      //navigator("/");
+      const {token} = resp.data;
+      localStorage.token = token;
+      const user = jwtDecode(token) as IUser;
+      dispatch({
+        type: AuthUserActionType.LOGIN_USER,
+        payload: user
+      });
+
+      console.log("Login user token", resp);
+      navigator("/");
     } catch (error: any) {
       console.log("Щось пішло не так", error);
     }
