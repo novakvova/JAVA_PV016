@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import jwtDecode from 'jwt-decode';
 import { AuthUserActionType, IUser } from './components/auth/types';
+import { AuthUserToken } from './components/auth/action';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,11 +15,7 @@ const root = ReactDOM.createRoot(
 
 if (localStorage.token) {
   const { token } = localStorage;
-  const user = jwtDecode(token) as IUser;
-  store.dispatch({
-    type: AuthUserActionType.LOGIN_USER,
-    payload: user,
-  });
+  AuthUserToken(token, store.dispatch);
 }
 
 

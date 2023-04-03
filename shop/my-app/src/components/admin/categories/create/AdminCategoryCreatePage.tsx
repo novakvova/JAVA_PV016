@@ -9,7 +9,7 @@ import { ICategoryCreate } from "../types";
 //   phone: string
 // }
 
-const CategoryCreatePage = () => {
+const AdminCategoryCreatePage = () => {
 
     const navigator = useNavigate();
 
@@ -178,4 +178,4 @@ const CategoryCreatePage = () => {
   );
 };
 
-export default CategoryCreatePage;
+export default AdminCategoryCreatePage;

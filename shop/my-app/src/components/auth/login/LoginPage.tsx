@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
+import { AuthUserToken } from "../action";
 
 const LoginePage = () => {
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -39,13 +40,8 @@ const LoginePage = () => {
         `${APP_ENV.REMOTE_HOST_NAME}account/login`,
         values
       );
-      const {token} = resp.data;
-      localStorage.token = token;
-      const user = jwtDecode(token) as IUser;
-      dispatch({
-        type: AuthUserActionType.LOGIN_USER,
-        payload: user
-      });
+      
+      AuthUserToken(resp.data.token, dispatch);
 
       console.log("Login user token", resp);
       navigator("/");

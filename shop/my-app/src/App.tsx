@@ -1,27 +1,20 @@
 import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
 import Home from './components/home';
-import DefaultHeader from './components/containers/default/DefaultHeader';
 import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from './components/containers/default';
 import NotFoundPage from './components/notFound';
-import CategoryCreatePage from './components/categories/create';
 import ProductCreatePage from './components/products/create/ProductCreatePage';
 import ProductListPage from './components/products/list';
 import ProductEditPage from './components/products/edit';
 import ProductItemPage from './components/products/item/ProductItemPage';
 import LoginPage from './components/auth/login';
+import AdminLayout from './components/containers/admin';
+import AdminHome from './components/admin/home';
+import AdminCategoryCreatePage from './components/admin/categories/create';
 const App = () => {
 
-  // useEffect(() => {
-  //   console.log("use effect App");
-  //   axios.get("http://localhost:8083/api/categories")
-  //     .then(resp => {
-  //       console.log("Server result", resp);
-  //     });
-  // }, []);
   
   
   return (
@@ -30,19 +23,15 @@ const App = () => {
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Home />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="categories/create" element={<CategoryCreatePage />} />
           <Route path="products/create" element={<ProductCreatePage />} />
           <Route path="products/edit/:id" element={<ProductEditPage />} />
           <Route path="products/list" element={<ProductListPage />} />
           <Route path="products/view/:id" element={<ProductItemPage />} />
-
-          {/* <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} /> */}
-
-          {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
           <Route path="*" element={<NotFoundPage />} />
+        </Route>
+        <Route path="/admin" element={<AdminLayout/>}>
+          <Route index element={<AdminHome />} />
+          <Route path="categories/create" element={<AdminCategoryCreatePage />} />
         </Route>
       </Routes>
     </>

@@ -88,6 +88,13 @@ const DefaultHeader = () => {
 
   const dispatch = useDispatch();
 
+  let isAdmin = false;
+
+  if(isAuth && user)
+  {
+      isAdmin = user.roles.includes("admin");
+  }
+
   const LogoutUser= (e: any) => {
     e.preventDefault();
     localStorage.removeItem("token");
@@ -122,15 +129,15 @@ const DefaultHeader = () => {
                 <>
                   <Popover.Button
                     className={classNames(
-                      open ? 'text-gray-900' : 'text-gray-500',
-                      'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                      open ? "text-gray-900" : "text-gray-500",
+                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     )}
                   >
                     <span>Solutions</span>
                     <ChevronDownIcon
                       className={classNames(
-                        open ? 'text-gray-600' : 'text-gray-400',
-                        'ml-2 h-5 w-5 group-hover:text-gray-500'
+                        open ? "text-gray-600" : "text-gray-400",
+                        "ml-2 h-5 w-5 group-hover:text-gray-500"
                       )}
                       aria-hidden="true"
                     />
@@ -154,10 +161,17 @@ const DefaultHeader = () => {
                               href={item.href}
                               className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                             >
-                              <item.icon className="h-6 w-6 flex-shrink-0 text-indigo-600" aria-hidden="true" />
+                              <item.icon
+                                className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                aria-hidden="true"
+                              />
                               <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                <p className="mt-1 text-sm text-gray-500">{item.description}</p>
+                                <p className="text-base font-medium text-gray-900">
+                                  {item.name}
+                                </p>
+                                <p className="mt-1 text-sm text-gray-500">
+                                  {item.description}
+                                </p>
                               </div>
                             </a>
                           ))}
@@ -169,7 +183,10 @@ const DefaultHeader = () => {
                                 href={item.href}
                                 className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
                               >
-                                <item.icon className="h-6 w-6 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                                <item.icon
+                                  className="h-6 w-6 flex-shrink-0 text-gray-400"
+                                  aria-hidden="true"
+                                />
                                 <span className="ml-3">{item.name}</span>
                               </a>
                             </div>
@@ -182,27 +199,35 @@ const DefaultHeader = () => {
               )}
             </Popover>
 
-            <Link to="/products/list" className="text-base font-medium text-gray-500 hover:text-gray-900">
+            <Link
+              to="/products/list"
+              className="text-base font-medium text-gray-500 hover:text-gray-900"
+            >
               Продукти
             </Link>
-            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-              Docs
-            </a>
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="text-base font-medium text-gray-500 hover:text-gray-900"
+              >
+                Адмін панель
+              </Link>
+            )}
 
             <Popover className="relative">
               {({ open }) => (
                 <>
                   <Popover.Button
                     className={classNames(
-                      open ? 'text-gray-900' : 'text-gray-500',
-                      'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                      open ? "text-gray-900" : "text-gray-500",
+                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     )}
                   >
                     <span>More</span>
                     <ChevronDownIcon
                       className={classNames(
-                        open ? 'text-gray-600' : 'text-gray-400',
-                        'ml-2 h-5 w-5 group-hover:text-gray-500'
+                        open ? "text-gray-600" : "text-gray-400",
+                        "ml-2 h-5 w-5 group-hover:text-gray-500"
                       )}
                       aria-hidden="true"
                     />
@@ -226,21 +251,36 @@ const DefaultHeader = () => {
                               href={item.href}
                               className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                             >
-                              <item.icon className="h-6 w-6 flex-shrink-0 text-indigo-600" aria-hidden="true" />
+                              <item.icon
+                                className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                aria-hidden="true"
+                              />
                               <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                <p className="mt-1 text-sm text-gray-500">{item.description}</p>
+                                <p className="text-base font-medium text-gray-900">
+                                  {item.name}
+                                </p>
+                                <p className="mt-1 text-sm text-gray-500">
+                                  {item.description}
+                                </p>
                               </div>
                             </a>
                           ))}
                         </div>
                         <div className="bg-gray-50 px-5 py-5 sm:px-8 sm:py-8">
                           <div>
-                            <h3 className="text-base font-medium text-gray-500">Recent Posts</h3>
+                            <h3 className="text-base font-medium text-gray-500">
+                              Recent Posts
+                            </h3>
                             <ul role="list" className="mt-4 space-y-4">
                               {recentPosts.map((post) => (
-                                <li key={post.id} className="truncate text-base">
-                                  <a href={post.href} className="font-medium text-gray-900 hover:text-gray-700">
+                                <li
+                                  key={post.id}
+                                  className="truncate text-base"
+                                >
+                                  <a
+                                    href={post.href}
+                                    className="font-medium text-gray-900 hover:text-gray-700"
+                                  >
                                     {post.name}
                                   </a>
                                 </li>
@@ -248,7 +288,10 @@ const DefaultHeader = () => {
                             </ul>
                           </div>
                           <div className="mt-5 text-sm">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                            <a
+                              href="#"
+                              className="font-medium text-indigo-600 hover:text-indigo-500"
+                            >
                               View all posts
                               <span aria-hidden="true"> &rarr;</span>
                             </a>
@@ -262,37 +305,38 @@ const DefaultHeader = () => {
             </Popover>
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-          {isAuth ? (
-                <>
-                  <Link
-                    to="/profile"
-                    className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-                  >
-                    {user?.email}
-                  </Link>
-                  <Link to="#"
-                    onClick={LogoutUser}
-                    className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                  >
-                    Вихід
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link
-                    to="/login"
-                    className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-                  >
-                    Вхід
-                  </Link>
-                  <a
-                    href="#"
-                    className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                  >
-                    Sign up
-                  </a>
-                </>
-              )}
+            {isAuth ? (
+              <>
+                <Link
+                  to="/profile"
+                  className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+                >
+                  {user?.email}
+                </Link>
+                <Link
+                  to="#"
+                  onClick={LogoutUser}
+                  className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                >
+                  Вихід
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+                >
+                  Вхід
+                </Link>
+                <a
+                  href="#"
+                  className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                >
+                  Sign up
+                </a>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -306,7 +350,10 @@ const DefaultHeader = () => {
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        <Popover.Panel focus className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
+        <Popover.Panel
+          focus
+          className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
+        >
           <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
@@ -332,8 +379,13 @@ const DefaultHeader = () => {
                       href={item.href}
                       className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                     >
-                      <item.icon className="h-6 w-6 flex-shrink-0 text-indigo-600" aria-hidden="true" />
-                      <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
+                      <item.icon
+                        className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-3 text-base font-medium text-gray-900">
+                        {item.name}
+                      </span>
                     </a>
                   ))}
                 </nav>
@@ -341,11 +393,17 @@ const DefaultHeader = () => {
             </div>
             <div className="space-y-6 py-6 px-5">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                <a
+                  href="#"
+                  className="text-base font-medium text-gray-900 hover:text-gray-700"
+                >
                   Pricing
                 </a>
 
-                <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                <a
+                  href="#"
+                  className="text-base font-medium text-gray-900 hover:text-gray-700"
+                >
                   Docs
                 </a>
                 {resources.map((item) => (
@@ -366,8 +424,11 @@ const DefaultHeader = () => {
                   Sign up
                 </a>
                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  Existing customer?{' '}
-                  <Link to="/login" className="text-indigo-600 hover:text-indigo-500">
+                  Existing customer?{" "}
+                  <Link
+                    to="/login"
+                    className="text-indigo-600 hover:text-indigo-500"
+                  >
                     Sign in
                   </Link>
                 </p>
@@ -377,7 +438,7 @@ const DefaultHeader = () => {
         </Popover.Panel>
       </Transition>
     </Popover>
-  )
+  );
 }
 
 export default DefaultHeader;
