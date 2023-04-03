@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import http from "../../../../http_common";
 import { ICategoryCreate } from "../types";
 
 // interface IWoman {
@@ -58,7 +59,7 @@ const AdminCategoryCreatePage = () => {
         
 
         try {
-            const item = await axios
+            const item = await http
               .post("http://localhost:8083/api/categories", 
                 model, 
                 {
@@ -67,7 +68,7 @@ const AdminCategoryCreatePage = () => {
                   }
                 });
             console.log("Server save category", item);
-            navigator("/");
+            navigator("/admin");
         }catch(error: any) {
             console.log("Щось пішло не так", error);
         }
