@@ -9,6 +9,7 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
 import { AuthUserToken } from "../action";
+import GoogleAuth from "../google/GoogleAuth";
 
 const LoginePage = () => {
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -120,6 +121,9 @@ const LoginePage = () => {
             <Link to="/" className="">
               Реєстрація
             </Link>
+            <div className="flex justify-between py-8">
+                <GoogleAuth />
+            </div>
           </div>
         </form>
       </div>
